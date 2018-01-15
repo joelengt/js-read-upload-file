@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>upload file!!</h1>
+	<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+	<script>
+
+	function sent() {
+		$.ajax({
+			url: '../hola-sample.txt',
+			method: 'get',
+			success: function(response) {
+	    	console.log('text part', response)
+
+		    var text = response
+
+	    	var file = new File([text], "foo5.txt", {
+	    	  type: "text/plain;charset=utf-8",
+	    	});
+
+	    	console.log('FILE NEW to send =>', file)
+
+  		  var formData = new FormData();
+  		  formData.append('file', file);
+
+  		  var xhr = new XMLHttpRequest();
+  			// Add any event handlers here...
+  			xhr.open('POST', 'http://localhost:3000/test/sample/upload', true);
+  			xhr.send(formData);
+			},
+			error: function (err) {
+				console.log('error', err)
+			}
+		})
+	}
+
+	sent()
+
+	</script>
+</body>
+</html>
